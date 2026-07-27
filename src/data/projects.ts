@@ -610,4 +610,6 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectsBySlug = Object.fromEntries(projects.map((p) => [p.slug, p]));
+export const projectsBySlug: Record<string, Project> = Object.fromEntries(
+  projects.map((p) => [p.slug, p] as const),
+);
