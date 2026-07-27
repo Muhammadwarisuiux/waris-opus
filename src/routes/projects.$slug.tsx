@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { projectsBySlug, projects } from "../data/projects";
+import type { Project } from "../data/projects";
 import { BrandMark } from "../components/site/BrandMark";
 import { DeviceMockup } from "../components/site/DeviceMockup";
 import { Screen } from "../components/site/Screen";
@@ -61,7 +62,7 @@ function Section({ eyebrow, title, children }: { eyebrow: string; title: string;
 }
 
 function ProjectDetail() {
-  const { project } = Route.useLoaderData();
+  const { project } = Route.useLoaderData() as { project: Project };
   const currentIdx = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIdx + 1) % projects.length];
 
