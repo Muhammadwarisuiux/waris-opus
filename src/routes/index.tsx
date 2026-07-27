@@ -37,7 +37,7 @@ function Home() {
           </div>
 
           <h1 className="mt-8 font-display text-6xl sm:text-7xl md:text-[104px] font-semibold tracking-tight leading-[0.9] max-w-6xl">
-            <span className="text-gradient">Muhammad Waris</span>
+            <span className="text-gradient">5+ Yrs UI/UX | SaaS, FinTech & Mobile Apps</span>
             <br />
             <span className="text-foreground/70">designs</span>{" "}
             <span className="text-gradient-brand">premium</span>
