@@ -32,7 +32,7 @@ export function SiteNav() {
           <Link to="/" className="flex items-center gap-2 group">
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary via-brand-cyan to-brand-violet text-[13px] font-bold text-white shadow-[0_0_24px_-6px_var(--primary)]">
               <img 
-                src="/warish-logo.png" 
+                src="/bestconverter_IMG_20260502_172718_166 (1).jpg" 
                 alt="Logo" 
                 className="h-8 w-8 rounded-full object-cover"
               />
