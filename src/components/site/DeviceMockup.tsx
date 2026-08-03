@@ -7,6 +7,9 @@ type Props = {
 };
 
 export function DeviceMockup({ device, children, className = "" }: Props) {
+  const inner = (
+    <div className="h-full w-full pointer-events-none select-none">{children}</div>
+  );
   if (device === "mobile") {
     return (
       <div className={`relative mx-auto ${className}`} style={{ width: 280 }}>
@@ -16,7 +19,7 @@ export function DeviceMockup({ device, children, className = "" }: Props) {
         >
           <div className="relative rounded-[32px] overflow-hidden bg-black" style={{ aspectRatio: "9 / 19.5" }}>
             <div className="absolute top-2 left-1/2 -translate-x-1/2 z-10 h-5 w-24 rounded-full bg-black" />
-            {children}
+            {inner}
           </div>
         </div>
       </div>
@@ -31,7 +34,7 @@ export function DeviceMockup({ device, children, className = "" }: Props) {
           style={{ background: "linear-gradient(180deg, #2a2c33, #0e0f12)", border: "1px solid rgba(255,255,255,0.08)" }}
         >
           <div className="relative rounded-[18px] overflow-hidden bg-black" style={{ aspectRatio: "4 / 3" }}>
-            {children}
+            {inner}
           </div>
         </div>
       </div>
@@ -53,7 +56,7 @@ export function DeviceMockup({ device, children, className = "" }: Props) {
           </div>
         </div>
         <div className="relative bg-black" style={{ aspectRatio: "16 / 10" }}>
-          {children}
+          {inner}
         </div>
       </div>
     </div>

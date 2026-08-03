@@ -17,6 +17,36 @@ function Chip({ children, color }: { children: React.ReactNode; color?: string }
   );
 }
 
+const PEOPLE = [
+  { name: "Ayesha Khan", initials: "AK", hue: "#F0A8A8" },
+  { name: "Daniel Reyes", initials: "DR", hue: "#8FD3C4" },
+  { name: "Mina Okafor", initials: "MO", hue: "#B4A7F5" },
+  { name: "Tomás Silva", initials: "TS", hue: "#F5CE7A" },
+  { name: "Hana Ito", initials: "HI", hue: "#9CC5F7" },
+  { name: "Omar Haddad", initials: "OH", hue: "#E8A0D0" },
+];
+
+function Avatar({ i, size = 24 }: { i: number; size?: number }) {
+  const p = PEOPLE[i % PEOPLE.length]!;
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-full font-semibold shrink-0"
+      style={{
+        width: size,
+        height: size,
+        fontSize: Math.round(size * 0.38),
+        background: `linear-gradient(135deg, ${p.hue}, ${p.hue}99)`,
+        color: "#101114",
+      }}
+      title={p.name}
+    >
+      {p.initials}
+    </span>
+  );
+}
+
+const TIMES = ["2m", "14m", "1h", "3h", "yesterday", "2d"];
+
 export function Screen({ project, content }: Props) {
   const { brand } = project;
   const surface = brand.surface;
@@ -38,7 +68,14 @@ export function Screen({ project, content }: Props) {
               <span className="h-6 w-6 rounded-lg" style={{ background: `linear-gradient(135deg, ${brand.from}, ${brand.to})` }} />
               <span className="text-xs opacity-70">{project.name} · Command</span>
             </div>
-            <div className="flex gap-1"><span className="h-2 w-2 rounded-full bg-white/20" /><span className="h-2 w-2 rounded-full bg-white/20" /><span className="h-2 w-2 rounded-full bg-white/20" /></div>
+            <div className="flex items-center gap-1.5">
+              <div className="flex -space-x-1.5 mr-1">
+                {[0, 1, 2].map((i) => (
+                  <Avatar key={i} i={i} size={18} />
+                ))}
+              </div>
+              <span className="text-[10px] opacity-60">3 online</span>
+            </div>
           </div>
           <div className="grid grid-cols-4 gap-2 mb-4">
             {content.metrics.map((m) => (
@@ -60,13 +97,14 @@ export function Screen({ project, content }: Props) {
             </div>
             <div className="rounded-lg p-3 flex flex-col gap-2" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="text-[11px] opacity-70">{content.sections[1] ?? "Inbox"}</div>
-              {[1, 2, 3, 4].map((i) => (
+              {[0, 1, 2, 3].map((i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: accent }} />
-                  <div className="flex-1 space-y-1">
-                    <Bar style={{ width: `${80 - i * 8}%` }} />
-                    <Bar style={{ width: `${50 - i * 5}%`, opacity: 0.5 }} />
+                  <Avatar i={i + 1} size={20} />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[10px] font-medium truncate">{PEOPLE[(i + 1) % PEOPLE.length]!.name}</div>
+                    <Bar style={{ width: `${70 - i * 8}%`, marginTop: 3 }} />
                   </div>
+                  <span className="text-[9px] opacity-50">{TIMES[i]}</span>
                 </div>
               ))}
             </div>
@@ -80,12 +118,14 @@ export function Screen({ project, content }: Props) {
           <div className="text-xs opacity-60 mb-3">{project.name}</div>
           <div className="text-lg font-semibold mb-4">{content.title}</div>
           <div className="space-y-2">
-            {content.items.map((it) => (
+            {content.items.map((it, i) => (
               <div key={it.title} className="flex items-center gap-3 rounded-lg p-3" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <span className="h-8 w-8 rounded-lg" style={{ background: `linear-gradient(135deg, ${brand.from}, ${brand.to})` }} />
+                <Avatar i={i} size={32} />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium truncate">{it.title}</div>
-                  <div className="text-[11px] opacity-60 truncate">{it.sub}</div>
+                  <div className="text-[11px] opacity-60 truncate">
+                    {PEOPLE[i % PEOPLE.length]!.name} · {it.sub}
+                  </div>
                 </div>
                 {it.meta && <Chip color={accent}>{it.meta}</Chip>}
               </div>
@@ -171,8 +211,13 @@ export function Screen({ project, content }: Props) {
         <div style={wrap} className="p-5 h-full">
           <div className="text-xs opacity-60">{project.name}</div>
           <div className="mt-4 rounded-2xl p-4" style={{ background: `linear-gradient(135deg, ${brand.from}, ${brand.to})` }}>
-            <div className="text-[10px] opacity-80">{content.role}</div>
-            <div className="text-xl font-semibold mt-1">{content.name}</div>
+            <div className="flex items-center gap-3">
+              <Avatar i={0} size={36} />
+              <div>
+                <div className="text-[10px] opacity-80">{content.role}</div>
+                <div className="text-xl font-semibold">{content.name}</div>
+              </div>
+            </div>
             <div className="mt-6 flex items-end justify-between">
               <div className="text-[10px] opacity-80">Valid thru 12/28</div>
               <div className="h-5 w-8 rounded" style={{ background: "rgba(255,255,255,0.3)" }} />
@@ -268,16 +313,27 @@ export function Screen({ project, content }: Props) {
     case "chat":
       return (
         <div style={wrap} className="p-5 h-full flex flex-col">
-          <div className="text-xs opacity-60 mb-3">{content.title}</div>
+          <div className="flex items-center gap-2 mb-3">
+            <Avatar i={2} size={22} />
+            <div className="min-w-0">
+              <div className="text-xs font-medium truncate">{content.title}</div>
+              <div className="text-[9px] opacity-60">Active now</div>
+            </div>
+          </div>
           <div className="flex-1 space-y-2 overflow-hidden">
             {content.messages.map((m, i) => (
-              <div key={i} className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs ${m.from === "me" ? "ml-auto" : ""}`} style={{
+              <div key={i} className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs ${m.from === "me" ? "ml-auto rounded-br-md" : "rounded-bl-md"}`} style={{
                 background: m.from === "me" ? accent : "rgba(255,255,255,0.06)",
                 color: m.from === "me" ? "#000" : text,
               }}>
                 {m.text}
               </div>
             ))}
+            <div className="max-w-[40%] rounded-2xl rounded-bl-md px-3 py-2.5 flex gap-1" style={{ background: "rgba(255,255,255,0.06)" }}>
+              {[0, 1, 2].map((d) => (
+                <span key={d} className="h-1.5 w-1.5 rounded-full bg-current opacity-40" />
+              ))}
+            </div>
           </div>
           <div className="mt-3 rounded-full px-3 py-2 text-xs opacity-60" style={{ background: "rgba(255,255,255,0.05)" }}>
             Message…
