@@ -131,10 +131,10 @@ function DesignSystemPage() {
           <div className="rounded-3xl bg-card border border-border p-8">
             <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">Buttons</div>
             <div className="flex flex-wrap gap-3">
-              <button className="rounded-full bg-white text-black px-5 py-2.5 text-sm font-medium">Primary</button>
-              <button className="rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium">Brand</button>
-              <button className="rounded-full border border-border px-5 py-2.5 text-sm font-medium">Secondary</button>
-              <button className="rounded-full px-5 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground">Ghost</button>
+              <Link to="/contact" className="rounded-full bg-white text-black px-5 py-2.5 text-sm font-medium hover:bg-white/90 transition-colors">Primary</Link>
+              <Link to="/projects" className="rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity">Brand</Link>
+              <Link to="/about" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-white/5 transition-colors">Secondary</Link>
+              <Link to="/" className="rounded-full px-5 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Ghost</Link>
             </div>
           </div>
 
@@ -235,7 +235,7 @@ function DesignSystemPage() {
               <div className="mx-auto h-12 w-12 rounded-2xl bg-gradient-to-br from-primary/30 to-brand-violet/30 flex items-center justify-center text-lg">✦</div>
               <div className="mt-4 font-display text-xl font-semibold tracking-tight">Nothing here yet</div>
               <div className="mt-2 text-sm text-muted-foreground">Create your first case study to see it live.</div>
-              <button className="mt-6 rounded-full bg-white text-black px-4 py-2 text-sm font-medium">New case study</button>
+              <Link to="/projects" className="mt-6 inline-flex rounded-full bg-white text-black px-4 py-2 text-sm font-medium hover:bg-white/90 transition-colors">Browse case studies</Link>
             </div>
           </div>
         </div>
