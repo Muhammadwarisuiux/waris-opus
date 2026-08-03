@@ -304,6 +304,14 @@ function ProjectDetail() {
       </Section>
 
       <section className="border-t border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 flex flex-wrap items-center gap-3">
+          <Link to="/projects" className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-medium hover:bg-white/5 transition-colors">
+            <span aria-hidden>←</span> All projects
+          </Link>
+          <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-3 text-sm font-medium hover:bg-white/90 transition-colors">
+            Start a project like this <span aria-hidden>→</span>
+          </Link>
+        </div>
         <Link
           to="/projects/$slug"
           params={{ slug: next.slug }}
